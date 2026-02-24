@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Sandrine M.",
+    "rating": 5,
+    "text": "Après 5 jours de cure, j'ai perdu 3 kg et ma peau est plus lumineuse ! Le Détox Skinny est devenu mon incontournable.",
+    "city": "Douala"
+  },
+  {
+    "name": "Patrick N.",
+    "rating": 5,
+    "text": "Le Red Boost me donne une énergie incroyable pour mes entraînements. Je commande chaque semaine maintenant !",
+    "city": "Yaoundé"
+  },
+  {
+    "name": "Aminata K.",
+    "rating": 5,
+    "text": "Le Skin Glow a vraiment transformé mon teint. Mes collègues me demandent mon secret. C'est Guyl's Juice !",
+    "city": "Douala"
+  },
+  {
+    "name": "Jean-Pierre T.",
+    "rating": 4,
+    "text": "Les Shots Détox du matin sont devenus ma routine. En 2 semaines, je me sens beaucoup plus léger et en forme.",
+    "city": "Yaoundé"
+  },
+  {
+    "name": "Christelle B.",
+    "rating": 5,
+    "text": "Le Green Energy est parfait pour ma pause déjeuner. Frais, naturel et tellement bon ! Livraison rapide en plus.",
+    "city": "Douala"
+  },
+  {
+    "name": "Mohamed A.",
+    "rating": 5,
+    "text": "La cure 7 jours a changé ma vie. Plus d'énergie, meilleur sommeil, et j'ai perdu du ventre. Je recommande à 100%.",
+    "city": "Douala"
+  }
+]
