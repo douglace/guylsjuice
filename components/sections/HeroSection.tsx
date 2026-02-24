@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 import { ArrowDown, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { generateContactMessage, generateWhatsAppURL } from "@/lib/whatsapp";
@@ -60,6 +61,23 @@ export default function HeroSection() {
         style={{ opacity }}
         className="relative z-10 text-center px-4 max-w-3xl mx-auto"
       >
+        {/* Logo - centered on mobile */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="flex justify-center mb-6 lg:hidden"
+        >
+          <Image
+            src="/logo.webp"
+            alt="Guyl's Juice"
+            width={160}
+            height={57}
+            priority
+            className="drop-shadow-lg"
+          />
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
