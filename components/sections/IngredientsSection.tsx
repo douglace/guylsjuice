@@ -6,16 +6,16 @@ import SectionHeading from "@/components/shared/SectionHeading";
 import { staggerContainer, fadeUp } from "@/lib/animations";
 
 const ingredients = [
-  { name: "Ananas", emoji: "🍍", color: "bg-yellow-100" },
-  { name: "Gingembre", emoji: "🫚", color: "bg-amber-100" },
-  { name: "Concombre", emoji: "🥒", color: "bg-green-100" },
-  { name: "Pomme fruit", emoji: "🍏", color: "bg-lime-100" },
-  { name: "Céleri", emoji: "🥬", color: "bg-emerald-100" },
-  { name: "Citron", emoji: "🍋", color: "bg-yellow-100" },
-  { name: "Carottes", emoji: "🥕", color: "bg-orange-100" },
-  { name: "Pastèque", emoji: "🍉", color: "bg-red-100" },
-  { name: "Betterave", emoji: "🫐", color: "bg-purple-100" },
-  { name: "Curcuma", emoji: "🟡", color: "bg-yellow-100" },
+  { name: "Ananas", emoji: "🍍", color: "bg-yellow-100", benefit: "Digestion" },
+  { name: "Gingembre", emoji: "🫚", color: "bg-amber-100", benefit: "Anti-inflammatoire" },
+  { name: "Concombre", emoji: "🥒", color: "bg-green-100", benefit: "Hydratation" },
+  { name: "Pomme fruit", emoji: "🍏", color: "bg-lime-100", benefit: "Antioxydant" },
+  { name: "Céleri", emoji: "🥬", color: "bg-emerald-100", benefit: "Détoxifiant" },
+  { name: "Citron", emoji: "🍋", color: "bg-yellow-100", benefit: "Vitamine C" },
+  { name: "Carottes", emoji: "🥕", color: "bg-orange-100", benefit: "Bêta-carotène" },
+  { name: "Pastèque", emoji: "🍉", color: "bg-red-100", benefit: "Hydratation" },
+  { name: "Betterave", emoji: "🫐", color: "bg-purple-100", benefit: "Énergie" },
+  { name: "Curcuma", emoji: "🟡", color: "bg-yellow-100", benefit: "Anti-oxydant" },
 ];
 
 export default function IngredientsSection() {
@@ -31,7 +31,7 @@ export default function IngredientsSection() {
     <section
       id="ingredients"
       ref={ref}
-      className="py-20 sm:py-28 relative overflow-hidden bg-white"
+      className="py-24 sm:py-32 relative overflow-hidden bg-white"
     >
       <motion.div
         style={{ y }}
@@ -56,12 +56,15 @@ export default function IngredientsSection() {
             <motion.div
               key={item.name}
               variants={fadeUp}
-              whileHover={{ y: -5, scale: 1.05 }}
-              className={`flex flex-col items-center gap-3 p-5 rounded-2xl ${item.color} transition-shadow hover:shadow-lg cursor-default`}
+              whileHover={{ y: -3, scale: 1.02 }}
+              className={`flex flex-col items-center gap-2 p-6 rounded-2xl ${item.color} transition-shadow hover:shadow-lg cursor-default`}
             >
-              <span className="text-4xl">{item.emoji}</span>
+              <span className="text-5xl">{item.emoji}</span>
               <span className="text-sm font-semibold text-foreground">
                 {item.name}
+              </span>
+              <span className="text-[11px] text-muted-foreground">
+                {item.benefit}
               </span>
             </motion.div>
           ))}

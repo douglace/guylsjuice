@@ -12,10 +12,10 @@ export default function ProductInfoPanel({ product }: { product: Product }) {
     <AnimatePresence mode="wait">
       <motion.div
         key={product.id}
-        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+        initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        exit={{ opacity: 0, y: -20, filter: "blur(8px)" }}
-        transition={{ duration: 0.4 }}
+        exit={{ opacity: 0, y: -20, filter: "blur(4px)" }}
+        transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
         className="flex flex-col justify-center text-center lg:text-left w-full"
       >
         {/* Product name */}
@@ -34,7 +34,12 @@ export default function ProductInfoPanel({ product }: { product: Product }) {
         {/* Ingredient badges */}
         <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center lg:justify-start mb-2 sm:mb-4">
           {product.ingredients.map((ingredient) => (
-            <Badge key={ingredient} variant="secondary" className="text-xs sm:text-sm">
+            <Badge
+              key={ingredient}
+              variant="secondary"
+              className="text-xs sm:text-sm"
+              style={{ backgroundColor: `${product.color}15`, color: product.color }}
+            >
               {ingredient}
             </Badge>
           ))}
@@ -45,7 +50,7 @@ export default function ProductInfoPanel({ product }: { product: Product }) {
           {product.prices.map((price) => (
             <div
               key={price.size}
-              className="bg-white/80 backdrop-blur-sm border rounded-xl px-3 py-2 sm:px-4 sm:py-3"
+              className="bg-white/60 backdrop-blur-md border rounded-2xl px-3 py-2 sm:px-4 sm:py-3"
             >
               <div className="text-[10px] sm:text-xs text-muted-foreground">
                 {price.size}

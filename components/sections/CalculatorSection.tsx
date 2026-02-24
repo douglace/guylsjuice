@@ -9,7 +9,7 @@ export default function CalculatorSection() {
   return (
     <section
       id="calculator"
-      className="py-20 sm:py-28 bg-white relative overflow-hidden"
+      className="py-24 sm:py-32 bg-white relative overflow-hidden"
     >
       <div className="absolute inset-0 pointer-events-none -z-10">
         <div className="absolute top-1/4 right-0 w-64 h-64 bg-orange-100/30 rounded-full blur-3xl" />

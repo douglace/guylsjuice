@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence, type PanInfo } from "framer-motion";
 import SectionHeading from "@/components/shared/SectionHeading";
-import { staggerContainer, fadeUp } from "@/lib/animations";
+import { staggerContainer, fadeUp, cardHover } from "@/lib/animations";
 import testimonials from "@/data/testimonials.json";
 
 interface Testimonial {
@@ -14,6 +14,24 @@ interface Testimonial {
   city: string;
 }
 
+const avatarColors = [
+  ["#16a34a", "#059669"],
+  ["#0891b2", "#0e7490"],
+  ["#7c3aed", "#6d28d9"],
+  ["#db2777", "#be185d"],
+  ["#ea580c", "#c2410c"],
+  ["#ca8a04", "#a16207"],
+];
+
+function getAvatarGradient(name: string) {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const index = Math.abs(hash) % avatarColors.length;
+  return avatarColors[index];
+}
+
 function TestimonialCard({
   item,
   className = "",
@@ -21,12 +39,14 @@ function TestimonialCard({
   item: Testimonial;
   className?: string;
 }) {
+  const [from, to] = getAvatarGradient(item.name);
+
   return (
     <div
-      className={`group relative bg-white border border-border rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 ${className}`}
+      className={`group relative bg-white border border-green-100/40 rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 ${className}`}
     >
-      <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-20 transition-opacity">
-        <Quote className="h-10 w-10 text-brand-green" />
+      <div className="absolute top-4 right-4 opacity-[0.06] group-hover:opacity-[0.12] transition-opacity">
+        <Quote className="h-16 w-16 text-brand-green" />
       </div>
 
       {/* Stars */}
@@ -36,7 +56,7 @@ function TestimonialCard({
             key={i}
             className={`h-4 w-4 ${
               i < item.rating
-                ? "fill-amber-400 text-amber-400"
+                ? "fill-amber-500 text-amber-500"
                 : "fill-gray-200 text-gray-200"
             }`}
           />
@@ -49,8 +69,11 @@ function TestimonialCard({
       </blockquote>
 
       {/* Author */}
-      <div className="flex items-center gap-3 pt-4 border-t border-border">
-        <div className="h-10 w-10 rounded-full bg-gradient-to-br from-brand-green to-brand-green-dark flex items-center justify-center text-white font-bold text-sm">
+      <div className="flex items-center gap-3 pt-4 border-t border-green-100/40">
+        <div
+          className="h-10 w-10 rounded-full flex items-center justify-center text-white font-bold text-sm"
+          style={{ background: `linear-gradient(135deg, ${from}, ${to})` }}
+        >
           {item.name.charAt(0)}
         </div>
         <div>
@@ -91,7 +114,7 @@ export default function TestimonialsSection() {
   return (
     <section
       id="testimonials"
-      className="py-20 sm:py-28 bg-green-50/50 relative overflow-hidden"
+      className="py-24 sm:py-32 bg-green-50/50 relative overflow-hidden"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6 relative z-10">
         <SectionHeading
@@ -106,13 +129,13 @@ export default function TestimonialsSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="hidden lg:grid lg:grid-cols-3 gap-6"
+          className="hidden lg:grid lg:grid-cols-3 gap-8"
         >
           {testimonials.map((item: Testimonial) => (
             <motion.div
               key={item.name}
               variants={fadeUp}
-              whileHover={{ y: -5 }}
+              whileHover={cardHover}
             >
               <TestimonialCard item={item} className="h-full" />
             </motion.div>

@@ -50,7 +50,7 @@ export default function Header() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 hidden lg:block transition-all duration-300",
         scrolled
-          ? "bg-white/90 backdrop-blur-lg shadow-sm"
+          ? "bg-white/80 backdrop-blur-xl shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
           : "bg-transparent"
       )}
     >
@@ -68,7 +68,7 @@ export default function Header() {
                 className={cn(
                   "relative px-3 py-2 text-sm font-medium transition-colors rounded-lg",
                   active
-                    ? "text-brand-green"
+                    ? "text-brand-green bg-brand-green/5"
                     : scrolled
                       ? "text-foreground/70 hover:text-foreground"
                       : "text-white/80 hover:text-white"

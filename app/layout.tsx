@@ -49,7 +49,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body
-        className={`${montserrat.variable} ${inter.variable} font-sans antialiased`}
+        className={`${montserrat.variable} ${inter.variable} font-sans antialiased grain`}
       >
         {children}
       </body>

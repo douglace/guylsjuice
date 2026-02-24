@@ -1,19 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Calendar, Sparkles, MessageCircle, Check, Star } from "lucide-react";
+import { Leaf, Sparkles, MessageCircle, Check, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cures } from "@/lib/cures";
 import { generateCureMessage, generateWhatsAppURL } from "@/lib/whatsapp";
 import SectionHeading from "@/components/shared/SectionHeading";
-import { staggerContainer, fadeUp } from "@/lib/animations";
+import { staggerContainer, fadeUp, cardHover } from "@/lib/animations";
 
 export default function CuresSection() {
   return (
     <section
       id="cures"
-      className="py-20 sm:py-28 bg-gradient-to-b from-green-50 to-white relative overflow-hidden"
+      className="py-24 sm:py-32 bg-gradient-to-b from-green-50 to-white relative overflow-hidden"
     >
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10 overflow-hidden">
         <div className="absolute top-[10%] left-[-5%] w-[40%] h-[40%] bg-green-200/30 rounded-full blur-3xl" />
@@ -32,29 +32,29 @@ export default function CuresSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid md:grid-cols-3 gap-6 lg:gap-8"
+          className="grid md:grid-cols-3 gap-8"
         >
           {cures.map((cure) => (
             <motion.div
               key={cure.id}
               variants={fadeUp}
-              whileHover={{ y: -8 }}
-              className={`relative bg-white rounded-2xl p-6 shadow-md border transition-shadow hover:shadow-xl ${
+              whileHover={cardHover}
+              className={`relative bg-gradient-to-b from-white to-green-50/30 rounded-2xl p-6 shadow-md border transition-shadow hover:shadow-xl ${
                 cure.popular
                   ? "border-brand-green ring-2 ring-brand-green/20"
-                  : "border-border"
+                  : "border-green-100/60"
               }`}
             >
               {cure.popular && (
-                <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-green text-white px-3 py-1 shadow-md">
+                <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-brand-green to-emerald-500 text-white px-3 py-1 shadow-lg">
                   <Star className="h-3 w-3 mr-1" />
                   Populaire
                 </Badge>
               )}
 
               <div className="text-center mb-6">
-                <div className="inline-flex items-center gap-2 bg-green-50 rounded-full px-4 py-2 mb-4">
-                  <Calendar className="h-4 w-4 text-brand-green" />
+                <div className="inline-flex items-center gap-2 bg-green-50 rounded-full px-5 py-2.5 mb-4">
+                  <Leaf className="h-4 w-4 text-brand-green" />
                   <span className="text-sm font-semibold text-brand-green">
                     {cure.duration}
                   </span>
@@ -101,6 +101,7 @@ export default function CuresSection() {
                     FCFA
                   </span>
                 </p>
+                <p className="text-xs text-muted-foreground">/cure</p>
               </div>
 
               <Button

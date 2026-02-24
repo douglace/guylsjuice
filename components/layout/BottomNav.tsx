@@ -38,7 +38,7 @@ export default function BottomNav() {
   };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-white/95 backdrop-blur-lg border-t border-border">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-white/80 backdrop-blur-xl border-t border-green-100/50">
       <div
         className="flex items-center justify-around h-16"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
@@ -55,11 +55,17 @@ export default function BottomNav() {
               {isActive && (
                 <motion.span
                   layoutId="bottomNavIndicator"
-                  className="absolute -top-0.5 left-1/2 -translate-x-1/2 w-8 h-1 bg-brand-green rounded-full"
+                  className="absolute -top-0.5 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-brand-green rounded-full"
                   transition={{ type: "spring", stiffness: 500, damping: 35 }}
                 />
               )}
-              <motion.div whileTap={{ scale: 0.85 }}>
+              <motion.div
+                whileTap={{ scale: 0.85 }}
+                className={cn(
+                  "transition-colors",
+                  isActive && "bg-brand-green/8 rounded-xl p-1.5"
+                )}
+              >
                 <Icon
                   className={cn(
                     "h-5 w-5 transition-colors",
