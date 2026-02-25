@@ -24,7 +24,7 @@ export default function SectionHeading({
         {label}
       </span>
       <span className="block w-8 h-0.5 bg-brand-green/40 mx-auto my-3 rounded-full" />
-      <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-3">
+      <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground mb-3">
         {title}
       </h2>
       {subtitle && (

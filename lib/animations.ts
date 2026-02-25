@@ -56,3 +56,44 @@ export const cardHover = {
   y: -4,
   transition: { type: "spring" as const, stiffness: 300, damping: 20 },
 };
+
+export const sectionEntry: Variants = {
+  hidden: { opacity: 0, y: 60 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+export const bottleFloat: Variants = {
+  idle: {
+    y: [0, -12, 0],
+    transition: { repeat: Infinity, duration: 4, ease: "easeInOut" },
+  },
+};
+
+export const glassHover: Variants = {
+  rest: { scale: 1, y: 0 },
+  hover: {
+    scale: 1.02,
+    y: -4,
+    transition: { type: "spring", stiffness: 300, damping: 20 },
+  },
+};
+
+export const hotspotPulse: Variants = {
+  idle: {
+    scale: [1, 1.3, 1],
+    opacity: [0.7, 1, 0.7],
+    transition: { repeat: Infinity, duration: 2, ease: "easeInOut" },
+  },
+};
+
+export const badgeBounce: Variants = {
+  initial: { scale: 1 },
+  bounce: {
+    scale: [1, 1.3, 0.9, 1.1, 1],
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};

@@ -1,20 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Beaker } from "lucide-react";
 import CalculatorFlow from "@/components/calculator/CalculatorFlow";
 import SectionHeading from "@/components/shared/SectionHeading";
+import DynamicBackground from "@/components/shared/DynamicBackground";
 
 export default function CalculatorSection() {
   return (
     <section
       id="calculator"
-      className="py-24 sm:py-32 bg-white relative overflow-hidden"
+      className="snap-section-flexible relative py-20 sm:py-28 overflow-hidden"
     >
-      <div className="absolute inset-0 pointer-events-none -z-10">
-        <div className="absolute top-1/4 right-0 w-64 h-64 bg-orange-100/30 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-green-100/40 rounded-full blur-3xl" />
-      </div>
+      <DynamicBackground color="#f97316" lightColor="#dcfce7" variant="organic" intensity={0.12} />
 
       <div className="mx-auto max-w-4xl px-4 sm:px-6 relative z-10">
         <SectionHeading
@@ -27,7 +24,7 @@ export default function CalculatorSection() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-b from-green-50 to-white rounded-3xl p-6 sm:p-10 border border-green-100 shadow-md"
+          className="bg-white/60 backdrop-blur-xl border border-white/30 rounded-3xl p-6 sm:p-10 shadow-lg"
         >
           <CalculatorFlow />
         </motion.div>

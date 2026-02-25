@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence, type PanInfo } from "framer-motion";
 import SectionHeading from "@/components/shared/SectionHeading";
+import GlassCard from "@/components/shared/GlassCard";
 import { staggerContainer, fadeUp, cardHover } from "@/lib/animations";
 import testimonials from "@/data/testimonials.json";
 
@@ -43,13 +44,12 @@ function TestimonialCard({
 
   return (
     <div
-      className={`group relative bg-white border border-green-100/40 rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 ${className}`}
+      className={`group relative bg-white/60 backdrop-blur-xl border border-white/30 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 ${className}`}
     >
       <div className="absolute top-4 right-4 opacity-[0.06] group-hover:opacity-[0.12] transition-opacity">
         <Quote className="h-16 w-16 text-brand-green" />
       </div>
 
-      {/* Stars */}
       <div className="mb-4 flex gap-1">
         {Array.from({ length: 5 }).map((_, i) => (
           <Star
@@ -63,13 +63,11 @@ function TestimonialCard({
         ))}
       </div>
 
-      {/* Quote */}
       <blockquote className="text-sm text-foreground/80 leading-relaxed mb-6 min-h-[60px]">
         &ldquo;{item.text}&rdquo;
       </blockquote>
 
-      {/* Author */}
-      <div className="flex items-center gap-3 pt-4 border-t border-green-100/40">
+      <div className="flex items-center gap-3 pt-4 border-t border-white/30">
         <div
           className="h-10 w-10 rounded-full flex items-center justify-center text-white font-bold text-sm"
           style={{ background: `linear-gradient(135deg, ${from}, ${to})` }}
@@ -114,7 +112,7 @@ export default function TestimonialsSection() {
   return (
     <section
       id="testimonials"
-      className="py-24 sm:py-32 bg-green-50/50 relative overflow-hidden"
+      className="snap-section-flexible relative py-20 sm:py-28 overflow-hidden"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6 relative z-10">
         <SectionHeading
@@ -132,13 +130,14 @@ export default function TestimonialsSection() {
           className="hidden lg:grid lg:grid-cols-3 gap-8"
         >
           {testimonials.map((item: Testimonial) => (
-            <motion.div
+            <GlassCard
               key={item.name}
               variants={fadeUp}
               whileHover={cardHover}
+              className="h-full !p-0"
             >
-              <TestimonialCard item={item} className="h-full" />
-            </motion.div>
+              <TestimonialCard item={item} className="h-full !shadow-none !border-0 !bg-transparent" />
+            </GlassCard>
           ))}
         </motion.div>
 
@@ -176,14 +175,13 @@ export default function TestimonialsSection() {
             </AnimatePresence>
           </div>
 
-          {/* Controls */}
           <div className="mt-6 flex justify-center items-center gap-4">
             <button
               onClick={() => {
                 setAutoplay(false);
                 prev();
               }}
-              className="p-2 rounded-full bg-brand-green/10 hover:bg-brand-green/20 text-brand-green transition-all"
+              className="p-2 rounded-full bg-white/60 backdrop-blur-sm hover:bg-white/80 text-brand-green transition-all border border-white/30"
               aria-label="Avis précédent"
             >
               <ChevronLeft className="h-5 w-5" />
@@ -213,7 +211,7 @@ export default function TestimonialsSection() {
                 setAutoplay(false);
                 next();
               }}
-              className="p-2 rounded-full bg-brand-green/10 hover:bg-brand-green/20 text-brand-green transition-all"
+              className="p-2 rounded-full bg-white/60 backdrop-blur-sm hover:bg-white/80 text-brand-green transition-all border border-white/30"
               aria-label="Avis suivant"
             >
               <ChevronRight className="h-5 w-5" />

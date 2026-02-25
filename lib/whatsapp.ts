@@ -1,5 +1,14 @@
 const WHATSAPP_NUMBER = "+237690967729";
 
+export interface CartItem {
+  productId: string;
+  productName: string;
+  size: string;
+  price: number;
+  quantity: number;
+  color: string;
+}
+
 export function generateWhatsAppURL(message: string): string {
   const encoded = encodeURIComponent(message);
   return `https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g, "")}?text=${encoded}`;
@@ -11,6 +20,27 @@ export function generateOrderMessage(
   price: number
 ): string {
   return `Bonjour Guyl's Juice ! 🍹\n\nJe souhaite commander :\n▸ ${product} (${size}) — ${price.toLocaleString("fr-FR")} FCFA\n\nMerci !`;
+}
+
+export function generateContextualOrderMessage(
+  product: string,
+  size: string,
+  price: number,
+  context: string
+): string {
+  return `Bonjour Guyl's Juice ! 🍹\n\nDepuis la section "${context}", je souhaite commander :\n▸ ${product} (${size}) — ${price.toLocaleString("fr-FR")} FCFA\n\nMerci !`;
+}
+
+export function generateCartMessage(items: CartItem[]): string {
+  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const itemLines = items
+    .map(
+      (item) =>
+        `▸ ${item.productName} (${item.size}) × ${item.quantity} — ${(item.price * item.quantity).toLocaleString("fr-FR")} FCFA`
+    )
+    .join("\n");
+
+  return `Bonjour Guyl's Juice ! 🍹\n\nJe souhaite commander :\n${itemLines}\n\n💰 Total : ${total.toLocaleString("fr-FR")} FCFA\n\nMerci !`;
 }
 
 export function generateCureMessage(cureName: string, price: number): string {

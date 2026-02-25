@@ -1,13 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Home, GlassWater, Sparkles, HelpCircle, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useScrollContainer } from "@/components/shared/ScrollContainerContext";
 
 const tabs = [
   { key: "hero", label: "Accueil", icon: Home },
-  { key: "products", label: "Jus", icon: GlassWater },
+  { key: "product-tangavis", label: "Jus", icon: GlassWater },
   { key: "cures", label: "Cures", icon: Sparkles },
   { key: "calculator", label: "Quiz", icon: HelpCircle },
   { key: "contact", label: "Contact", icon: Phone },
@@ -15,27 +16,40 @@ const tabs = [
 
 export default function BottomNav() {
   const [active, setActive] = useState("hero");
+  const containerRef = useScrollContainer();
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = tabs.map((t) => t.key);
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el && el.getBoundingClientRect().top <= 150) {
-          setActive(sections[i]);
-          break;
-        }
-      }
-    };
+    const container = containerRef?.current;
+    if (!container) return;
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    const observers: IntersectionObserver[] = [];
 
-  const scrollTo = (id: string) => {
+    tabs.forEach((tab) => {
+      const el = document.getElementById(tab.key);
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActive(tab.key);
+            }
+          });
+        },
+        { root: container, threshold: 0.3 }
+      );
+
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, [containerRef]);
+
+  const scrollTo = useCallback((id: string) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
+  }, []);
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-white/80 backdrop-blur-xl border-t border-green-100/50">

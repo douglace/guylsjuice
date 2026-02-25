@@ -3,25 +3,30 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import SectionHeading from "@/components/shared/SectionHeading";
+import GlassCard from "@/components/shared/GlassCard";
 import { staggerContainer, fadeUp } from "@/lib/animations";
+import { useScrollContainer } from "@/components/shared/ScrollContainerContext";
 
 const ingredients = [
-  { name: "Ananas", emoji: "🍍", color: "bg-yellow-100", benefit: "Digestion" },
-  { name: "Gingembre", emoji: "🫚", color: "bg-amber-100", benefit: "Anti-inflammatoire" },
-  { name: "Concombre", emoji: "🥒", color: "bg-green-100", benefit: "Hydratation" },
-  { name: "Pomme fruit", emoji: "🍏", color: "bg-lime-100", benefit: "Antioxydant" },
-  { name: "Céleri", emoji: "🥬", color: "bg-emerald-100", benefit: "Détoxifiant" },
-  { name: "Citron", emoji: "🍋", color: "bg-yellow-100", benefit: "Vitamine C" },
-  { name: "Carottes", emoji: "🥕", color: "bg-orange-100", benefit: "Bêta-carotène" },
-  { name: "Pastèque", emoji: "🍉", color: "bg-red-100", benefit: "Hydratation" },
-  { name: "Betterave", emoji: "🫐", color: "bg-purple-100", benefit: "Énergie" },
-  { name: "Curcuma", emoji: "🟡", color: "bg-yellow-100", benefit: "Anti-oxydant" },
+  { name: "Ananas", emoji: "🍍", color: "#fef3c7", benefit: "Digestion" },
+  { name: "Gingembre", emoji: "🫚", color: "#fde68a", benefit: "Anti-inflammatoire" },
+  { name: "Concombre", emoji: "🥒", color: "#dcfce7", benefit: "Hydratation" },
+  { name: "Pomme fruit", emoji: "🍏", color: "#ecfccb", benefit: "Antioxydant" },
+  { name: "Céleri", emoji: "🥬", color: "#d1fae5", benefit: "Détoxifiant" },
+  { name: "Citron", emoji: "🍋", color: "#fef9c3", benefit: "Vitamine C" },
+  { name: "Carottes", emoji: "🥕", color: "#ffedd5", benefit: "Bêta-carotène" },
+  { name: "Pastèque", emoji: "🍉", color: "#fee2e2", benefit: "Hydratation" },
+  { name: "Betterave", emoji: "🫐", color: "#ede9fe", benefit: "Énergie" },
+  { name: "Curcuma", emoji: "🟡", color: "#fef3c7", benefit: "Anti-oxydant" },
 ];
 
 export default function IngredientsSection() {
   const ref = useRef<HTMLDivElement>(null);
+  const containerRef = useScrollContainer();
+
   const { scrollYProgress } = useScroll({
     target: ref,
+    container: containerRef ?? undefined,
     offset: ["start end", "end start"],
   });
 
@@ -31,7 +36,7 @@ export default function IngredientsSection() {
     <section
       id="ingredients"
       ref={ref}
-      className="py-24 sm:py-32 relative overflow-hidden bg-white"
+      className="snap-section-flexible relative py-20 sm:py-28 overflow-hidden"
     >
       <motion.div
         style={{ y }}
@@ -53,11 +58,11 @@ export default function IngredientsSection() {
           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-6"
         >
           {ingredients.map((item) => (
-            <motion.div
+            <GlassCard
               key={item.name}
               variants={fadeUp}
-              whileHover={{ y: -3, scale: 1.02 }}
-              className={`flex flex-col items-center gap-2 p-6 rounded-2xl ${item.color} transition-shadow hover:shadow-lg cursor-default`}
+              className="flex flex-col items-center gap-2 !p-5 cursor-default"
+              style={{ backgroundColor: `${item.color}99` }}
             >
               <span className="text-5xl">{item.emoji}</span>
               <span className="text-sm font-semibold text-foreground">
@@ -66,7 +71,7 @@ export default function IngredientsSection() {
               <span className="text-[11px] text-muted-foreground">
                 {item.benefit}
               </span>
-            </motion.div>
+            </GlassCard>
           ))}
         </motion.div>
       </div>

@@ -10,7 +10,7 @@ export default function WhatsAppFAB() {
       href={generateWhatsAppURL(generateContactMessage())}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-20 right-4 lg:bottom-6 lg:right-6 z-40 flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-whatsapp hover:scale-110 transition-transform"
+      className="fixed bottom-36 right-4 lg:bottom-6 lg:right-6 z-40 flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-whatsapp hover:scale-110 transition-transform"
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
       transition={{ delay: 1, type: "spring", stiffness: 260, damping: 20 }}

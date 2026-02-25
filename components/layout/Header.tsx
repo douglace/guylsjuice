@@ -1,15 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import Logo from "./Logo";
 import { generateContactMessage, generateWhatsAppURL } from "@/lib/whatsapp";
 import { cn } from "@/lib/utils";
+import { useScrollContainer } from "@/components/shared/ScrollContainerContext";
 
 const navLinks = [
   { label: "Accueil", href: "#hero" },
-  { label: "Nos Jus", href: "#products" },
+  { label: "Nos Jus", href: "#product-tangavis" },
   { label: "Cures", href: "#cures" },
   { label: "Quiz", href: "#calculator" },
   { label: "Avis", href: "#testimonials" },
@@ -19,29 +20,56 @@ const navLinks = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
+  const containerRef = useScrollContainer();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+    const container = containerRef?.current;
+    if (!container) return;
 
-      const sections = navLinks.map((l) => l.href.replace("#", ""));
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el && el.getBoundingClientRect().top <= 100) {
-          setActiveSection(sections[i]);
-          break;
-        }
-      }
+    const handleScroll = () => {
+      setScrolled(container.scrollTop > 50);
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, [containerRef]);
 
-  const scrollTo = (href: string) => {
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
+  useEffect(() => {
+    const container = containerRef?.current;
+    if (!container) return;
+
+    const sectionIds = navLinks.map((l) => l.href.replace("#", ""));
+    const observers: IntersectionObserver[] = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveSection(id);
+            }
+          });
+        },
+        { root: container, threshold: 0.3 }
+      );
+
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, [containerRef]);
+
+  const scrollTo = useCallback(
+    (href: string) => {
+      const el = document.querySelector(href);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    },
+    []
+  );
 
   return (
     <motion.header
@@ -50,7 +78,7 @@ export default function Header() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 hidden lg:block transition-all duration-300",
         scrolled
-          ? "bg-white/80 backdrop-blur-xl shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
+          ? "bg-white/80 backdrop-blur-xl shadow-[0_1px_3px_rgba(0,0,0,0.04)] border-b border-white/30"
           : "bg-transparent"
       )}
     >
